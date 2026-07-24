@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.1",
+  "created_at": "2026-07-16",
+  "status": "draft",
+  "template_type": "teaching_learning_plan",
+  "school_level": "middle_school",
+  "subject": "informatics",
+  "source_samples": [
+    "inputs/middle_school_informatics/unit_3/samples/중학교 정보_[교수·학습 과정안] Ⅰ-01-1. 컴퓨팅 시스템의 구성과 동작.hwp.hwp",
+    "inputs/middle_school_informatics/unit_3/samples/중학교 정보_[교수·학습 과정안] Ⅱ-01-1. 디지털 데이터의 특징과 가치.hwp.hwp"
+  ],
+  "converted_samples_dir": "inputs/middle_school_informatics/unit_3/samples/converted",
+  "document_structure": [
+    "단원명",
+    "문서 제목",
+    "차시 정보",
+    "교과서 쪽수",
+    "학습 목표",
+    "교수ㆍ학습 및 평가 방법",
+    "준비물",
+    "단계별 교수ㆍ학습 과정"
+  ],
+  "header_fields": {
+    "lesson_title": "예: 01-1. 컴퓨팅 시스템의 구성과 동작",
+    "document_title": "교수·학습 과정안",
+    "period": "예: 1~2차시 / 68차시",
+    "textbook_pages": "예: 교과서 10~15쪽"
+  },
+  "learning_goal_rules": {
+    "count": 2,
+    "style": "평서형 목표 문장",
+    "ending": "수 있다.",
+    "source_priority": [
+      "교과서 본문 감지 학습목표",
+      "성취기준 진술",
+      "단원 구조 JSON의 draft_learning_goals"
+    ]
+  },
+  "teaching_learning_methods": {
+    "common_methods": [
+      "강의",
+      "조사‧발표",
+      "탐구 활동"
+    ],
+    "assessment_methods": [
+      "자기 평가",
+      "관찰 평가",
+      "발표 평가"
+    ]
+  },
+  "materials": {
+    "teacher": [
+      "교과서",
+      "프레젠테이션 자료"
+    ],
+    "student": [
+      "교과서",
+      "필기도구"
+    ],
+    "optional_for_programming_lessons": [
+      "컴퓨터",
+      "태블릿 PC",
+      "실습 파일"
+    ]
+  },
+  "lesson_flow_columns": [
+    "단계",
+    "학습 요소",
+    "교수ㆍ학습 활동",
+    "지도상의 유의점"
+  ],
+  "lesson_flow_stages": [
+    {
+      "stage": "도입",
+      "required_elements": [
+        "학습 목표 확인",
+        "단원 도입",
+        "생각 열기 또는 발문"
+      ]
+    },
+    {
+      "stage": "전개",
+      "required_elements": [
+        "핵심 개념 안내",
+        "본문 활동 또는 실습",
+        "스스로 탐색ㆍ분석 활동"
+      ]
+    },
+    {
+      "stage": "정리 및 평가",
+      "required_elements": [
+        "학습 내용 정리",
+        "자기 평가 또는 관찰 평가",
+        "차시 예고"
+      ]
+    }
+  ],
+  "style_rules": [
+    "교사 활동은 '~하도록 한다', '~을 안내한다', '~을 제시한다' 형태를 우선 사용한다.",
+    "학생 활동은 활동 중심으로 짧게 쓴다.",
+    "지도상의 유의점에는 오개념, 수업 운영상 주의점, 활동 초점을 쓴다.",
+    "프로그래밍 차시는 실습 환경과 오류 수정 안내를 반드시 포함한다."
+  ],
+  "review_notes": [
+    "HWP 원본에서 표 구조는 텍스트로 추출했으므로, 실제 DOCX/HWPX 생성 단계에서는 표 레이아웃을 별도로 구현해야 한다.",
+    "현재 규칙은 견본 2개에서 공통으로 확인된 구조를 기준으로 한 초안이다."
+  ]
+}
+
