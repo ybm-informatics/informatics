@@ -3,166 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>홍길동 | 자기소개</title>
+<title>이재직 | 교과서 개발 포트폴리오</title>
 <style>
   :root {
-    --bg: #0f1115;
-    --card: #171a21;
-    --accent: #6ee7b7;
-    --accent2: #60a5fa;
-    --text: #eaeaea;
-    --muted: #9aa0ab;
+    --bg: #f6f8fa;
+    --card: #ffffff;
+    --ink: #101828;
+    --muted: #667085;
+    --border: #e6eaf0;
+
+    --navy: #0f172a;
+    --navy2: #1e3a5f;
+    --blue: #2563eb;
+    --green: #10b981;
+    --lime: #84cc16;
+    --slate: #475569;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background: linear-gradient(160deg, #0f1115, #191c24);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
+    font-family: "Pretendard", "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
   }
 
-  .card {
-    max-width: 720px;
-    width: 100%;
+  a { color: inherit; }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+  /* Scroll progress bar */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--navy), var(--blue), var(--green));
+    z-index: 100; transition: width 0.1s ease-out;
+  }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(246,248,250,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; flex-wrap: wrap; gap: 10px; }
+  nav .brand { font-weight: 800; font-size: 17px; background: linear-gradient(120deg, var(--navy), var(--blue), var(--green)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  nav .links { display: flex; gap: 4px; font-size: 14px; flex-wrap: wrap; }
+  nav .links a {
+    text-decoration: none; color: var(--muted); font-weight: 600;
+    padding: 8px 14px; border-radius: 999px; transition: all 0.2s;
+  }
+  nav .links a:hover { background: var(--card); color: var(--blue); box-shadow: 0 2px 8px rgba(37,99,235,0.15); }
+  nav .links a.active { background: var(--navy); color: #fff; }
+
+  /* Hero */
+  header.hero {
+    position: relative;
+    padding: 64px 0 60px;
+    background: linear-gradient(120deg, var(--navy) 0%, var(--navy2) 40%, var(--blue) 75%, var(--green) 100%);
+    overflow: hidden;
+  }
+  header.hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 15% 20%, rgba(255,255,255,0.12), transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(132,204,22,0.18), transparent 45%);
+  }
+  .hero-inner { position: relative; display: flex; gap: 28px; align-items: center; flex-wrap: wrap; color: #fff; }
+  .avatar {
+    width: 116px; height: 116px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 3px solid rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px; font-weight: 800; color: #fff; flex-shrink: 0;
+    backdrop-filter: blur(4px);
+  }
+  .badge {
+    display: inline-block; background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 6px 14px; border-radius: 999px; font-size: 13.5px; font-weight: 600; margin-bottom: 12px;
+  }
+  .hero h1 { font-size: 32px; margin-bottom: 6px; font-weight: 800; }
+  .hero .role { font-size: 15.5px; opacity: 0.9; margin-bottom: 14px; font-weight: 500; }
+  .quote { font-size: 15px; max-width: 560px; opacity: 0.9; }
+
+  /* Stats strip */
+  .stats {
+    position: relative;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 18px; overflow: hidden; margin-top: 36px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .stat { background: rgba(255,255,255,0.06); padding: 18px 12px; text-align: center; color: #fff; }
+  .stat .num { font-size: 28px; font-weight: 800; }
+  .stat .label { font-size: 12.5px; opacity: 0.85; margin-top: 4px; }
+
+  /* Contact card floats below hero */
+  .contact-card {
+    position: relative;
+    margin-top: -34px;
     background: var(--card);
     border-radius: 20px;
-    padding: 48px 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 12px 32px rgba(16,24,40,0.12);
+    padding: 20px 28px;
+    display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
   }
-
-  .profile {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
+  .contact-card a {
+    text-decoration: none; font-size: 14.5px; font-weight: 600;
+    padding: 10px 18px; border-radius: 12px; color: var(--ink);
+    background: var(--bg); border: 1px solid var(--border);
+    transition: all 0.2s;
   }
+  .contact-card a:hover { transform: translateY(-2px); }
+  .contact-card a:nth-child(1):hover { color: var(--blue); border-color: var(--blue); }
+  .contact-card a:nth-child(2):hover { color: var(--green); border-color: var(--green); }
 
-  .avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    font-weight: 700;
-    color: #0f1115;
-    flex-shrink: 0;
-  }
+  /* Reveal-on-scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  h1 {
-    font-size: 28px;
-    margin-bottom: 4px;
-  }
-
-  .role {
-    color: var(--muted);
-    font-size: 16px;
-  }
-
-  .intro {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #d4d7dd;
-    margin-bottom: 32px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
+  /* Sections */
+  section { padding: 56px 0; scroll-margin-top: 70px; }
   .section-title {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--accent);
-    margin-bottom: 14px;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px;
+    font-weight: 800; margin-bottom: 4px;
   }
+  section h2.big { font-size: 24px; margin-bottom: 28px; font-weight: 800; }
+  section h2.big .muted { color: var(--muted); font-size: 14px; font-weight: 500; }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 32px;
-  }
+  .c-navy { color: var(--navy); } .c-blue { color: var(--blue); }
+  .c-green { color: var(--green); } .c-lime { color: #65a30d; } .c-slate { color: var(--slate); }
 
+  /* Skills */
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; }
   .tag {
-    background: rgba(110, 231, 183, 0.1);
-    color: var(--accent);
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 14px;
-    border: 1px solid rgba(110, 231, 183, 0.25);
+    padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 700;
+    border: 1.5px solid transparent; cursor: default; transition: transform 0.15s ease;
   }
+  .tag:hover { transform: translateY(-2px) scale(1.04); }
+  .tag.p1 { background: #d1fae5; color: #047857; }
+  .tag.p2 { background: #dbeafe; color: #1d4ed8; }
+  .tag.p3 { background: #e2e8f0; color: var(--navy); }
+  .tag.p4 { background: #ecfccb; color: #4d7c0f; }
+  .tag.p5 { background: #dbeafe; color: var(--navy2); }
+  .tag.p6 { background: #f1f5f9; color: var(--slate); }
 
-  .contacts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+  /* Timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 3px;
+    background: linear-gradient(var(--navy), var(--blue), var(--green));
+    border-radius: 3px;
   }
-
-  .contacts a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 14px;
-    padding: 10px 18px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: all 0.2s ease;
+  .tl-item { position: relative; padding-bottom: 36px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -28px; top: 4px; width: 16px; height: 16px;
+    border-radius: 50%; background: var(--dot, var(--blue));
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--dot, var(--blue)) 18%, transparent);
+    border: 3px solid #fff;
   }
+  .tl-card {
+    background: var(--card); border-radius: 16px; padding: 20px 22px;
+    box-shadow: 0 4px 16px rgba(16,24,40,0.06); border: 1px solid var(--border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tl-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(16,24,40,0.1); }
+  .tl-date { color: var(--muted); font-size: 13px; margin-bottom: 4px; font-weight: 600; }
+  .tl-title { font-size: 17px; font-weight: 800; margin-bottom: 2px; }
+  .tl-sub { color: var(--muted); font-size: 13.5px; margin-bottom: 12px; font-weight: 500; }
+  .tl-body { font-size: 14.5px; color: #3c4250; }
+  .tl-body ul { padding-left: 18px; margin-top: 6px; }
+  .tl-body li { margin-bottom: 5px; }
 
-  .contacts a:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: var(--accent2);
+  /* Cards grid */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border-radius: 16px; padding: 22px;
+    box-shadow: 0 4px 16px rgba(16,24,40,0.06); border-top: 4px solid var(--accent, var(--blue));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(16,24,40,0.1); }
+  .card h3 { font-size: 15px; margin-bottom: 12px; font-weight: 800; }
+  .card ul { list-style: none; font-size: 14px; color: #3c4250; }
+  .card li { padding: 7px 0; border-bottom: 1px dashed var(--border); }
+  .card li:last-child { border-bottom: none; }
+  .card .date { color: var(--muted); font-size: 12.5px; display: block; font-weight: 600; }
+
+  /* Accordion */
+  .accordion {
+    border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    background: var(--card); margin-bottom: 14px; box-shadow: 0 4px 16px rgba(16,24,40,0.05);
+    transition: box-shadow 0.2s ease;
+  }
+  .accordion:hover { box-shadow: 0 8px 22px rgba(16,24,40,0.09); }
+  .accordion summary {
+    cursor: pointer; padding: 18px 22px; font-weight: 700; font-size: 15.5px;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+  }
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion summary::after {
+    content: "+"; color: #fff; background: var(--navy);
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: transform 0.2s; flex-shrink: 0; margin-left: 12px;
+  }
+  .accordion[open] summary::after { transform: rotate(45deg); background: var(--green); }
+  .accordion .content { padding: 0 22px 22px; font-size: 14.5px; color: #3c4250; }
+  .accordion .content p { margin-bottom: 12px; }
+  .accordion .content p:last-child { margin-bottom: 0; }
+
+  /* Back to top */
+  #toTop {
+    position: fixed; right: 22px; bottom: 22px; width: 44px; height: 44px;
+    border-radius: 50%; background: var(--navy); color: #fff; border: none;
+    font-size: 18px; cursor: pointer; box-shadow: 0 8px 20px rgba(16,24,40,0.25);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: all 0.25s ease; z-index: 50;
+  }
+  #toTop.show { opacity: 1; pointer-events: auto; }
+  #toTop:hover { background: var(--green); transform: translateY(-3px); }
+
+  footer {
+    padding: 48px 0 60px; text-align: center; color: var(--muted); font-size: 13px;
+    background: linear-gradient(180deg, transparent, #eef2ff);
   }
 
   @media (max-width: 480px) {
-    .card { padding: 32px 24px; }
-    .profile { flex-direction: column; text-align: center; }
+    header.hero { padding: 48px 0 48px; }
+    .hero-inner { flex-direction: column; text-align: center; }
+    .stats { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="profile">
-    <div class="avatar">홍</div>
-    <div>
-      <h1>홍길동</h1>
-      <div class="role">Frontend Developer</div>
+<div id="progress"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">이재직</div>
+    <div class="links" id="navLinks">
+      <a href="#about" data-sec="about">소개</a>
+      <a href="#career" data-sec="career">경력</a>
+      <a href="#education" data-sec="education">학력</a>
+      <a href="#etc" data-sec="etc">자격/수상</a>
+      <a href="#story" data-sec="story">자기소개서</a>
     </div>
   </div>
+</nav>
 
-  <p class="intro">
-    안녕하세요, 사용자에게 좋은 경험을 만드는 것을 좋아하는 개발자 홍길동입니다.
-    새로운 기술을 배우는 것을 즐기며, 작은 디테일까지 신경 쓰는 것을 중요하게 생각합니다.
-    함께 성장할 수 있는 팀과 프로젝트를 찾고 있습니다.
-  </p>
-
-  <div class="section-title">관심 분야 & 기술</div>
-  <div class="tags">
-    <span class="tag">JavaScript</span>
-    <span class="tag">React</span>
-    <span class="tag">TypeScript</span>
-    <span class="tag">UI/UX</span>
-    <span class="tag">Node.js</span>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="avatar">이</div>
+      <div>
+        <div class="badge">📘 현장 중심의 역동적인 교과서를 만드는 교과서 개발자</div>
+        <h1>이재직</h1>
+        <div class="role">[정보] 교과용도서 편집 개발 · 와이비엠 재직 중 (경력 11년 11개월)</div>
+        <p class="quote">"내가 꿈을 이루면 나는 누군가의 꿈이 된다." — 중·고등학교 정보, 인공지능 교과서를 직접 편집·개발하며 정보 교육의 저변을 넓혀온 교과서 편집자입니다.</p>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num" data-target="11">0</div><div class="label">연차 (년+)</div></div>
+      <div class="stat"><div class="num" data-target="11">0</div><div class="label">편집 개발 도서(책)</div></div>
+      <div class="stat"><div class="num" data-target="2">0</div><div class="label">전국 최초 교과서</div></div>
+    </div>
   </div>
+</header>
 
-  <div class="section-title">연락처</div>
-  <div class="contacts">
-    <a href="mailto:example@email.com">✉️ example@email.com</a>
-    <a href="https://github.com/example" target="_blank" rel="noopener">🐙 GitHub</a>
-    <a href="https://linkedin.com/in/example" target="_blank" rel="noopener">💼 LinkedIn</a>
+<div class="wrap">
+  <div class="contact-card">
+    <a href="mailto:informatics@kakao.com">✉️ informatics@kakao.com</a>
+    <a href="tel:010-8840-1135">📞 010-8840-1135</a>
   </div>
 </div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-title c-blue reveal">Skills & Keywords</div>
+    <h2 class="big reveal">잘 다루는 것들</h2>
+    <div class="tags reveal">
+      <span class="tag p1">C</span><span class="tag p2">HTML</span><span class="tag p3">Python</span>
+      <span class="tag p4">PowerPoint</span><span class="tag p5">Excel</span><span class="tag p6">Illustrator</span>
+      <span class="tag p1">Photoshop</span><span class="tag p2">워드</span><span class="tag p3">한컴</span>
+      <span class="tag p4">Scratch</span><span class="tag p5">Entry</span>
+      <span class="tag p6">성취지향성</span><span class="tag p1">창의성</span><span class="tag p2">리더십</span>
+      <span class="tag p3">추진력</span><span class="tag p4">성장지향성</span><span class="tag p5">대인관계</span>
+      <span class="tag p6">섬세함</span><span class="tag p1">열정</span><span class="tag p2">중등학교정교사 자격</span>
+    </div>
+  </div>
+</section>
+
+<section id="career">
+  <div class="wrap">
+    <div class="section-title c-navy reveal">Career</div>
+    <h2 class="big reveal">경력 <span class="muted">· 총 11년 11개월</span></h2>
+    <div class="timeline">
+
+      <div class="tl-item reveal" style="--dot: var(--navy);">
+        <div class="tl-date">2022. 02 ~ 재직중</div>
+        <div class="tl-card">
+          <div class="tl-title">와이비엠 · 중고정보실업팀-정보팀 과장 팀장</div>
+          <div class="tl-sub">교정, 출판기획, 집필</div>
+          <div class="tl-body">
+            <ul>
+              <li>2022 개정 교육과정 초·중·고등학교 정보과 교과용도서 총괄</li>
+              <li>중학교 정보, 고등학교 정보, 고등학교 인공지능 기초, 고등학교 데이터 과학 교과용도서 개발</li>
+              <li>중·고등학교 정보 AI 디지털교과서 개발</li>
+              <li>충청남도교육청 등 초중등학교 학교장 인정도서 개발</li>
+              <li>교과 연계 교수·학습 자료 개발</li>
+              <li>「Brightics Studio로 배우는 데이터 과학」 공동 집필 (2022)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal" style="--dot: var(--blue);">
+        <div class="tl-date">2022. 03 ~ 2022. 08 (6개월)</div>
+        <div class="tl-card">
+          <div class="tl-title">서울여자고등학교 · 정보·컴퓨터 교사</div>
+          <div class="tl-sub">중고등학교</div>
+          <div class="tl-body">
+            <ul>
+              <li>2022학년도 1학기 인공지능 기초 시간 강사</li>
+              <li>고등학교 2학년 진로선택 과목 `인공지능 기초` 수업 진행</li>
+              <li>3학급(70명) 교수·학습 및 평가 진행</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal" style="--dot: var(--green);">
+        <div class="tl-date">2015. 07 ~ 2021. 12 (6년 6개월)</div>
+        <div class="tl-card">
+          <div class="tl-title">금성출판사 · 콘텐츠R&D본부 인문예능팀 선임연구원 팀원</div>
+          <div class="tl-sub">교정, 출판기획, 교과용도서</div>
+          <div class="tl-body">
+            <ul>
+              <li>2015 개정 교육과정 초·중·고등학교 정보과 교과용도서 및 참고서 11책 편집 개발</li>
+              <li>2015 개정 교육과정 초등학교 수학 교과용도서 개발 지원</li>
+              <li>2019년 국정 교과용도서 발행권 입찰 선정 TFT 참여</li>
+              <li>디지털 콘텐츠 개발 업무 진행 (디지털콘텐츠/디지털기획팀 파견)</li>
+            </ul>
+            <ul style="margin-top:10px;">
+              <li>중학교 정보 교과서(2015~2017) — 18종 중 2위, 서울특별시교육청 1위 (약 77,000부 / 16.1%)</li>
+              <li>고등학교 정보 교과서(2015~2017) — 8종 중 4위 (약 17,000부 / 10.8%)</li>
+              <li>중·고등학교 정보 지도서, 자습서(평가문제집 겸용)</li>
+              <li>중학교 두런두런 컴퓨팅 교과서(2018) — 서울특별시교육감 인정</li>
+              <li>고등학교 인공지능과 피지컬 컴퓨팅 교과서(2019~2020) — 전국 최초 인공지능 교과서</li>
+              <li>중학교 인공지능과 피지컬 컴퓨팅의 기초 교과서(2020~2021) — 전국 최초 중학교 인공지능 교과서</li>
+              <li>고등학교 인공지능 기초 / 인공지능 수학 교과서(2020~2021)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal" style="--dot: var(--lime);">
+        <div class="tl-date">2014. 08 ~ 2015. 07 (1년)</div>
+        <div class="tl-card">
+          <div class="tl-title">비상교육 · 스마트러닝부</div>
+          <div class="tl-sub">채널관리자</div>
+          <div class="tl-body">
+            <ul>
+              <li>자산관리시스템 메타데이터 검수 및 데이터 등록</li>
+              <li>디지털교과서 데이터 관리 및 수정·보완</li>
+              <li>정보자료실(사내 도서관) 업무 지원</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-title c-green reveal">Education</div>
+    <h2 class="big reveal">학력</h2>
+    <div class="timeline">
+      <div class="tl-item reveal" style="--dot: var(--blue);">
+        <div class="tl-date">2021. 03 ~ 2023. 08 · 졸업</div>
+        <div class="tl-card">
+          <div class="tl-title">고려대학교 교육대학원 (석사과정) — 교육정보전공</div>
+          <div class="tl-sub">학점 4.5 / 4.5</div>
+          <div class="tl-body">졸업논문: [연구사례보고서] 2015 개정 교육과정에 따른 정보 교과서의 범교과 학습 주제 적용 사례 연구 — 중학교 정보 교과서를 중심으로</div>
+        </div>
+      </div>
+      <div class="tl-item reveal" style="--dot: var(--green);">
+        <div class="tl-date">2008. 02 ~ 2015. 02 · 졸업</div>
+        <div class="tl-card">
+          <div class="tl-title">서원대학교 사범대학 컴퓨터교육과 (복수전공: 멀티미디어공학과)</div>
+          <div class="tl-sub">학점 3.66 / 4.5</div>
+        </div>
+      </div>
+      <div class="tl-item reveal" style="--dot: var(--navy);">
+        <div class="tl-date">2008 · 졸업</div>
+        <div class="tl-card">
+          <div class="tl-title">충북인터넷고등학교 (전문(실업)계열)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="etc">
+  <div class="wrap">
+    <div class="section-title c-lime reveal">Certificates & Awards</div>
+    <h2 class="big reveal">자격증 · 수상 · 대외활동</h2>
+    <div class="grid2">
+      <div class="card reveal" style="--accent: var(--navy);">
+        <h3 class="c-navy">자격증 / 어학</h3>
+        <ul>
+          <li><span class="date">2021.04</span>2종보통운전면허 — 경찰청</li>
+          <li><span class="date">2015.02</span>중등학교정교사2급(정보·컴퓨터) — 교육과학기술부</li>
+          <li><span class="date">2011.03</span>항해사 — 부산지방해양항만청</li>
+          <li><span class="date">2009.06</span>컴퓨터활용능력 3급 — 대한상공회의소</li>
+          <li><span class="date">2007.07</span>정보기기운용기능사 — 한국산업인력관리공단</li>
+          <li><span class="date">2005.02</span>(국가공인)정보기술자격(ITQ)인증시험 — 한국생산성본부</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="--accent: var(--blue);">
+        <h3 class="c-blue">수상</h3>
+        <ul>
+          <li><span class="date">2023</span>학업 성적 최우수상 — 고려대학교 교육대학원</li>
+          <li><span class="date">2014</span>모의 수업 경연대회 자연계열 1위(금상) — 서원대학교 사범대학</li>
+          <li><span class="date">2014</span>예비 교사의 날 수업 시연 2위(금상) — 서원대학교 사범대학</li>
+          <li><span class="date">2014</span>우수 예비 교사 인증서 — 서원대학교 총장상</li>
+          <li><span class="date">2007</span>충청북도 컴퓨터 꿈나무 축제 홈페이지 경진 2위(금상) — 충청북도교육청</li>
+          <li><span class="date">2006</span>디스플레이&시안디자인 학생경진대회 특선 — 혜천대학교</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="--accent: var(--green);">
+        <h3 class="c-green">인턴 · 대외활동</h3>
+        <ul>
+          <li><span class="date">2013.01~2013.12</span>제13대 컴퓨터교육과 학생회 (학생회장)</li>
+          <li><span class="date">2013.07</span>서원대학교 사범대학 농촌봉사활동 (4박5일, 경기도 안성)</li>
+          <li><span class="date">2012.01~2012.12</span>제12대 컴퓨터교육과 학생회 (기획부장)</li>
+          <li><span class="date">2011.08~2011.12</span>이보영의 토킹클럽 아르바이트 (도서관 사서 및 보조 강사)</li>
+          <li><span class="date">2014.06~2014.08</span>u&e learning 전문가 양성과정 — 한국HRD협회</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="--accent: var(--lime);">
+        <h3 class="c-lime">해외경험</h3>
+        <ul>
+          <li><span class="date">2007.12</span>우수 전문계고교생 직업교육 해외연수 — 일본 큐슈지방 (4박5일)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="wrap">
+    <div class="section-title c-navy reveal">Self Introduction</div>
+    <h2 class="big reveal">자기소개서</h2>
+
+    <details class="accordion reveal" open>
+      <summary>1. 성장 과정 및 성격의 장단점</summary>
+      <div class="content">
+        <p>"내가 꿈을 이루면 나는 누군가의 꿈이 된다." 고등학교 시절 IT 전문 과목을 어려워하던 친구들을 도와주며 교육 분야에 꿈을 갖기 시작했고, 컴퓨터교육과 진학 후 정보 교육에 대한 사명감을 느꼈습니다. 임용고시 대신 교과서 개발을 통해 꿈을 간접적으로 이루기로 결심하고 교육 분야에 진출했습니다.</p>
+        <p>적극적이고 사교적인 성향은 집필진 선생님들과 깊은 관계를 형성하는 데 도움이 되었고, "내 일은 내가 책임지고 마무리해야 한다"는 책임감으로 짧은 개발 기간에도 타협 없이 최선을 다해 왔습니다.</p>
+      </div>
+    </details>
+
+    <details class="accordion reveal">
+      <summary>2. 특기 (컴퓨터 활용 능력)</summary>
+      <div class="content">
+        <p>포토샵과 일러스트레이터를 활용해 교과서 속 컴퓨터 캡처 화면을 벡터 텍스트로 재작업하여 72dpi 수준의 이미지를 300dpi 이상 고해상도로 끌어올리는 등, 시각 자료 품질 개선 작업을 별도 외주 없이 직접 수행하며 비용 절감과 현장 교사들의 긍정적 피드백을 이끌어냈습니다.</p>
+      </div>
+    </details>
+
+    <details class="accordion reveal">
+      <summary>3. 경력 사항</summary>
+      <div class="content">
+        <p>비상교육에서 자산관리시스템과 디지털교과서 데이터 관리 지원 업무로 시작해, 금성출판사에서 2015 개정 교육과정 정보과 교과용도서의 메인 편집을 맡아 교육과정 공청회부터 수정·보완까지 전체 개발 과정을 수행했습니다.</p>
+        <p>'탈 IT'를 지향하되 정보학의 본질은 살리는 방향으로 중학교 정보 교과서를 개발했고, 전국 최초의 인공지능 교과서 및 신설 과목 '인공지능 기초', '인공지능 수학' 교과서를 대표 편집자로 개발했습니다. 6년 5개월간 국정·검인정도서 개발 전 과정을 직·간접적으로 경험하며 전문화된 실무 능력을 길렀습니다.</p>
+      </div>
+    </details>
+
+    <details class="accordion reveal">
+      <summary>4. 지원동기 및 장래비전</summary>
+      <div class="content">
+        <p>"앞으로도 정보 교육의 발전을 위해 노력하는 이재직이 되겠습니다." 2022 개정 교육과정으로 정보 교육의 중요성이 한층 강조되고, 학교장 개설 선택 과목과 '데이터 과학', '소프트웨어와 생활' 등 신설 과목이 늘어나는 흐름 속에서, 학교장 개설 과목 교과서 개발 경험을 바탕으로 더 넓은 시야에서 정보과 교과용도서 개발에 기여하고자 합니다.</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="contact-card" style="margin-top:0;">
+      <a href="mailto:informatics@kakao.com">✉️ informatics@kakao.com</a>
+      <a href="tel:010-8840-1135">📞 010-8840-1135</a>
+    </div>
+    <p style="margin-top:20px;">© 이재직</p>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="맨 위로">↑</button>
+
+<script>
+  // Scroll progress bar
+  const progress = document.getElementById('progress');
+  function updateProgress() {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const height = h.scrollHeight - h.clientHeight;
+    progress.style.width = (height > 0 ? (scrolled / height) * 100 : 0) + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // Back to top button
+  const toTop = document.getElementById('toTop');
+  document.addEventListener('scroll', () => {
+    toTop.classList.toggle('show', window.scrollY > 500);
+  }, { passive: true });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Reveal on scroll
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Scrollspy nav
+  const navLinks = document.querySelectorAll('#navLinks a');
+  const sections = [...navLinks].map(a => document.getElementById(a.dataset.sec));
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === entry.target.id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => s && spyObserver.observe(s));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.stat .num');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target, 10);
+        const duration = 1200;
+        const start = performance.now();
+        function step(now) {
+          const p = Math.min((now - start) / duration, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterObserver.observe(el));
+</script>
 
 </body>
 </html>
